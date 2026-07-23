@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["FYQ358R59X.crosses.crosses-ios"],
+        "components": [
+          {
+            "/": "/m/*",
+            "comment": "Machine tag deep links open the Crosses app on that machine."
+          }
+        ]
+      }
+    ]
+  }
+}

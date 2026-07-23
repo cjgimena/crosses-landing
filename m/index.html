@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crosses · Machine tag</title>
+<meta name="apple-itunes-app" content="app-id=REPLACE_APPSTORE_ID">
+<style>
+  :root { color-scheme: light dark; --bg:#111114; --surface:#1b1b1f; --ink:#f3f3f5;
+          --muted:#9a9aa2; --orange:#ff4300; --line:rgba(255,255,255,.10); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .card { width: 100%; max-width: 380px; text-align: center; }
+  /* The Crosses "#" mark: a woven grid with one orange stroke. */
+  .logo { width: 64px; height: 64px; margin: 0 auto 22px; }
+  h1 { font-size: 26px; letter-spacing: -.5px; margin: 0 0 8px; }
+  p { color: var(--muted); margin: 0 auto 22px; max-width: 300px; }
+  .token { font: 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted);
+           letter-spacing: .04em; background: var(--surface); border: 1px solid var(--line);
+           border-radius: 10px; padding: 10px 14px; display: inline-block; margin-bottom: 26px; word-break: break-all; }
+  .btn { display: block; width: 100%; padding: 15px 18px; border-radius: 15px; font-weight: 600; font-size: 16px;
+         text-decoration: none; margin-bottom: 12px; }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+  .eyebrow { font: 600 11px/1 ui-monospace, monospace; letter-spacing: .2em; color: var(--orange); margin-bottom: 18px; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+      <g fill="none" stroke-linecap="round" stroke-width="10">
+        <line x1="16" y1="35" x2="84" y2="35" stroke="var(--ink)"/>
+        <line x1="16" y1="65" x2="84" y2="65" stroke="var(--ink)"/>
+        <line x1="35" y1="16" x2="35" y2="84" stroke="var(--ink)"/>
+        <line x1="65" y1="16" x2="65" y2="84" stroke="var(--orange)"/>
+      </g>
+    </svg>
+    <div class="eyebrow">CROSSES</div>
+    <h1>You tapped a machine tag</h1>
+    <p>Open Crosses to check in and start stringing. Don't have it yet? Grab the app — then tap the tag again.</p>
+    <div class="token" id="token">machine</div>
+    <a class="btn btn-primary" id="open" href="#">Open in Crosses</a>
+    <a class="btn btn-ghost" href="https://apps.apple.com/app/REPLACE_APPSTORE_ID">Get Crosses on the App Store</a>
+  </main>
+  <script>
+    // The machine token is the last path segment (/m/<token>). Show it and offer to reopen
+    // the same URL (which the app claims as a Universal Link once installed).
+    var token = decodeURIComponent(location.pathname.replace(/^\/m\//, "").replace(/\/$/, "")) || "machine";
+    document.getElementById("token").textContent = token;
+    document.getElementById("open").setAttribute("href", location.href);
+  </script>
+</body>
+</html>
