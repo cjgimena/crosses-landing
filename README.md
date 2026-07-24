@@ -1,70 +1,108 @@
-# crossesapp.com — Vercel site + Universal Links host (#7)
+# crossesapp.com
 
-This folder is a static site. It does three jobs:
+The marketing site for **Crosses**, an iOS app that tracks a team's racquet-stringing
+machines. Static HTML and CSS, no build step, deployed to Vercel.
 
 ```
-web/
-├── index.html                               # landing page (crossesapp.com/)
-├── m/index.html                             # fallback page for phones without the app (/m/<token>)
-├── .well-known/apple-app-site-association    # AASA — makes /m/* open the iOS app
-└── vercel.json                              # forces the AASA content-type + routes /m/<token>
+.
+├── index.html                              # landing page (crossesapp.com/)
+├── m/index.html                            # fallback for phones without the app (/m/<token>)
+├── .well-known/apple-app-site-association  # AASA — makes /m/* open the iOS app
+├── vercel.json                             # AASA content-type + /m/<token> routing
+├── brand/crosses-mark.svg                  # the woven "#" mark, standalone
+└── scripts/check-aasa.sh                   # guards the seam with the app repo
 ```
 
-The app is already wired to this domain: `AppLinks.domain = "crossesapp.com"` and the
-`applinks:crossesapp.com` entry in `crosses-ios.entitlements`.
+## This repo has a hard dependency on the app repo
 
-## 1. Deploy to Vercel
+The app source lives separately, in **`crosses-ios`**. Universal Links only work while
+three values agree across that boundary:
 
-1. Push this repo to GitHub (it already is), then in Vercel: **Add New → Project → import the repo.**
-2. **Root Directory → `web`** (so `index.html` / `.well-known` / `m` sit at the site root).
-   Framework preset: **Other**. No build command, no output dir — it's static.
-3. Deploy. You'll get a `*.vercel.app` URL to sanity-check first.
+| Value | Lives in | Must equal |
+|---|---|---|
+| `appIDs: ["FYQ358R59X.crosses.crosses-ios"]` | this repo, `.well-known/apple-app-site-association` | `<TeamID>.<BundleID>` of the app |
+| `applinks:crossesapp.com` | app repo, `crosses-ios.entitlements` | this site's domain |
+| `AppLinks.domain` + the `/m/<token>` URL written to NFC tags | app repo, `AppLinks.swift` | the domain and the AASA's `/m/*` component |
 
-## 2. Connect crossesapp.com
+**Nothing enforces this.** Drift produces no build error and no failing test. Physical NFC
+tags simply stop opening the app, and you find out when someone holds a phone to a machine.
 
-1. Vercel → Project → **Settings → Domains → add `crossesapp.com`** (and optionally `www`).
-2. Point your registrar's DNS at Vercel as it instructs (an A record for the apex, or their
-   nameservers). Vercel provisions the HTTPS cert automatically.
-3. **Make `crossesapp.com` the primary domain — it must serve directly, NOT redirect** to
-   `www` (a redirect on the apex breaks Universal Links, since the tag URLs use the apex).
-
-## 3. Verify the AASA (the #1 thing that breaks Universal Links)
+So run the check after any change to the app's bundle ID, Team ID, or deep-link paths, and
+after deploying:
 
 ```bash
-curl -sI https://crossesapp.com/.well-known/apple-app-site-association
+scripts/check-aasa.sh --live
 ```
 
-Must be **HTTP 200**, `content-type: application/json`, and **no redirect** (no 301/308).
-`vercel.json` already sets the content-type. Then check the body:
+Without `--live` it validates only the files in this repo (fast, no network). With `--live`
+it also fetches what the domain actually serves and asserts HTTP 200, zero redirects,
+`application/json`, and a matching appID.
 
-```bash
-curl -s https://crossesapp.com/.well-known/apple-app-site-association
+## Deploy to Vercel
+
+1. **Add New → Project →** import this repo.
+2. **Root Directory: `/`** (the default — files already sit at the repo root).
+   Framework preset **Other**. No build command, no output directory.
+3. Deploy, sanity-check the `*.vercel.app` URL, then attach the domain.
+
+### Connect the domain
+
+1. **Settings → Domains →** add `crossesapp.com` (and optionally `www`).
+2. Point your registrar's DNS at Vercel (A record for the apex, or their nameservers).
+   HTTPS is provisioned automatically.
+3. **`crossesapp.com` must be the primary domain and serve directly, NOT redirect** to
+   `www`. NFC tags encode the apex, and a redirect on it breaks Universal Links.
+
+## The AASA is the thing that breaks
+
+Apple does not follow redirects for `/.well-known/apple-app-site-association`, and rejects
+it unless it is served as `application/json`. `vercel.json` pins both; keep those two rules
+whatever else changes:
+
+```json
+{ "headers":  [{ "source": "/.well-known/apple-app-site-association",
+                 "headers": [{ "key": "Content-Type", "value": "application/json" }] }],
+  "rewrites": [{ "source": "/m/:token", "destination": "/m/index.html" }] }
 ```
 
-It should show `"appIDs": ["FYQ358R59X.crosses.crosses-ios"]` and component `/m/*`. Confirm
-that Team ID (`FYQ358R59X`) is really yours — if not, tell me and I'll update it.
+## Testing tags (requires a real iPhone, not the Simulator)
 
-## 4. Enable the capability in Xcode / Apple
-
-Add the **Associated Domains** capability to the `crosses.crosses-ios` App ID — either let
-Xcode's automatic signing add it (Signing & Capabilities → + Capability → Associated Domains,
-it's already `applinks:crossesapp.com` in the entitlements file), or add it in the Apple
-Developer portal. This needs your **paid** membership (which you have).
-
-## 5. Test on your iPhone (can't be done in the Simulator)
-
-1. Build to your device. In the app, pair a tag to a machine — that writes
+1. Build the app to your device and pair a tag to a machine. That writes
    `https://crossesapp.com/m/<token>` onto the tag.
-2. Lock the phone, tap the tag: the app should open straight to that machine.
-   During development you can append `?mode=developer` to the associated domain to skip Apple's
-   AASA CDN cache.
-3. On a phone **without** the app (or Android), tapping the tag opens `crossesapp.com/m/<token>`
-   → the fallback page.
+2. Lock the phone and tap the tag: the app should open straight to that machine.
+   During development, append `?mode=developer` to the associated domain in the entitlement
+   to bypass Apple's AASA CDN cache.
+3. On a phone **without** the app, or on Android, the same tag opens `/m/<token>` and shows
+   the fallback page.
 
-## Later (when the app is published)
+Also needed once, on the Apple side: the **Associated Domains** capability on the
+`crosses.crosses-ios` App ID (Xcode adds it automatically with the entitlement present).
+Requires a paid developer membership.
 
-- Swap `appStoreID` in `AppLinks.swift` and add the real App Store link + smart banner in
-  `m/index.html` (there's a comment marking where).
-- If you want the fallback page to name the actual machine ("Court 3 · UCLA Team Room"), that
-  needs a small token→machine lookup (a Supabase edge function) — the static page can't resolve
-  it alone. Easy to add when you want it.
+## Editing the site
+
+Open this folder in any editor and open `index.html` in a browser. There is no toolchain.
+The only network dependency is the Google Fonts stylesheet (Archivo + Martian Mono).
+
+Design notes worth preserving:
+
+- Colors are ported verbatim from the app's `CrossesTheme.swift`. If the app's palette
+  changes, change them here too.
+- **Orange means exactly one thing: live / now / yours.** Free is green, booked is grey.
+  Status chip *labels* use darkened variants of those hues because the raw colors fail
+  WCAG contrast as small text on a tint of themselves.
+- The wordmark is the app's own logo treatment: uppercase monospace, semibold, `.138em`
+  tracking. Martian Mono stands in for the app's SF Mono, which does not exist off Apple
+  platforms.
+- The page is theme-aware and carries a System/Light/Dark control mirroring the app's
+  appearance picker.
+
+## When the app ships
+
+- Add the real App Store link and the smart banner in `m/index.html` (a comment marks the
+  spot), and swap `appStoreID` in the app's `AppLinks.swift`.
+- The hero and closing CTAs currently read "Coming soon" in `index.html`.
+- To make `/m/<token>` name the actual machine ("Court 3 · UCLA Team Room"), add a narrow
+  read path in the app's existing Supabase project (a Postgres RPC returning just machine
+  name + room name for a token). Keep RLS strict, use the publishable/anon key only, and
+  never put the service_role key in this repo.
