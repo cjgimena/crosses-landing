@@ -19,7 +19,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Martian+Mono:wght@400..600&family=Space+Grotesk:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Martian+Mono:wght@400..600&display=swap">
 
 <style>
 /* ============================================================================
@@ -29,8 +29,8 @@
    live / now / you (the same rule the iOS app follows).
 
    Type: Archivo (display + body, athletic signage), Martian Mono (instrument
-   labels), Space Grotesk 600 scoped to the wordmark only — that's the logo pick,
-   not a page font.
+   labels and the wordmark). The wordmark matches the iOS app's logo treatment:
+   uppercase monospace, semibold, wide tracking ported from CrossesTheme.swift.
    ========================================================================= */
 
 /* ---- Tokens -------------------------------------------------------------- */
@@ -240,9 +240,13 @@ a { color: inherit; }
 .lockup .mark { width: 38px; height: 38px; flex: none; }
 .lockup .stack { display: flex; flex-direction: column; gap: 4px; }
 .wordmark {
-  font-family: "Space Grotesk", Archivo, sans-serif;
-  font-weight: 600; font-size: 1.5rem; line-height: .84;
-  letter-spacing: -.02em; color: var(--ink);
+  /* The app's logo treatment, ported: uppercase monospace, semibold, wide
+     tracking (3.6/26 = .138em in CrossesTheme.swift). Martian Mono rather than
+     the app's SF Mono so the logo renders identically off Apple platforms. */
+  font-family: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 600; font-size: 1.125rem; line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .138em; color: var(--ink);
 }
 .lockup .sub { font-size: .5625rem; letter-spacing: .19em; color: var(--ink-56); }
 .lockup:hover .mark .live { stroke: var(--orange-deep); }
