@@ -93,6 +93,11 @@
 /* ---- Base ---------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* The `hidden` attribute must win over any element's own `display` (e.g. the
+   confirmation and the form both set display in their class), so the waitlist
+   confirmation only appears after a successful submit, never on load. */
+[hidden] { display: none !important; }
+
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 84px; background: var(--bg); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
