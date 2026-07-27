@@ -457,11 +457,17 @@ footer .fine { margin: 0; width: 100%; font-size: 12.5px; color: var(--ink-label
           <line x1="35" y1="16" x2="35" y2="84" stroke="currentColor"/>
           <line class="live" x1="65" y1="16" x2="65" y2="84" stroke="var(--orange)"/>
         </g>
-        <!-- Weave: horizontals pass OVER the orange vertical (top) and the ink
-             vertical (bottom), matching brand/crosses-mark.svg exactly. -->
-        <g fill="none" stroke-width="10" stroke-linecap="butt" stroke="currentColor">
-          <line x1="57" y1="35" x2="73" y2="35"/>
-          <line x1="27" y1="65" x2="43" y2="65"/>
+        <!-- Weave, exactly per "Crosses Brand Final": a 2-unit knockout gap where
+             the top bar passes in front of the orange vertical and the bottom bar
+             in front of the ink vertical. The knockout follows the surface (--bg);
+             the ink bar is then redrawn on top. -->
+        <g fill="none" stroke-linecap="butt">
+          <line x1="57" y1="35" x2="73" y2="35" stroke="var(--bg)" stroke-width="14"/>
+          <line x1="27" y1="65" x2="43" y2="65" stroke="var(--bg)" stroke-width="14"/>
+        </g>
+        <g fill="none" stroke-linecap="round">
+          <line x1="58" y1="35" x2="72" y2="35" stroke="currentColor" stroke-width="10"/>
+          <line x1="28" y1="65" x2="42" y2="65" stroke="currentColor" stroke-width="10"/>
         </g>
       </svg>
       <span class="wordmark">crosses</span>
@@ -714,11 +720,17 @@ footer .fine { margin: 0; width: 100%; font-size: 12.5px; color: var(--ink-label
           <line x1="35" y1="16" x2="35" y2="84" stroke="currentColor"/>
           <line class="live" x1="65" y1="16" x2="65" y2="84" stroke="var(--orange)"/>
         </g>
-        <!-- Weave: horizontals pass OVER the orange vertical (top) and the ink
-             vertical (bottom), matching brand/crosses-mark.svg exactly. -->
-        <g fill="none" stroke-width="10" stroke-linecap="butt" stroke="currentColor">
-          <line x1="57" y1="35" x2="73" y2="35"/>
-          <line x1="27" y1="65" x2="43" y2="65"/>
+        <!-- Weave, exactly per "Crosses Brand Final": a 2-unit knockout gap where
+             the top bar passes in front of the orange vertical and the bottom bar
+             in front of the ink vertical. The knockout follows the surface (--bg);
+             the ink bar is then redrawn on top. -->
+        <g fill="none" stroke-linecap="butt">
+          <line x1="57" y1="35" x2="73" y2="35" stroke="var(--bg)" stroke-width="14"/>
+          <line x1="27" y1="65" x2="43" y2="65" stroke="var(--bg)" stroke-width="14"/>
+        </g>
+        <g fill="none" stroke-linecap="round">
+          <line x1="58" y1="35" x2="72" y2="35" stroke="currentColor" stroke-width="10"/>
+          <line x1="28" y1="65" x2="42" y2="65" stroke="currentColor" stroke-width="10"/>
         </g>
       </svg>
       <span class="wordmark">crosses</span>
