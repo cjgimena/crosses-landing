@@ -6,6 +6,7 @@ machines. Static HTML and CSS, no build step, deployed to Vercel.
 ```
 .
 ├── index.html                              # landing page (crossesapp.com/)
+├── api/waitlist.js                         # serverless POST → Airtable (holds the token server-side)
 ├── m/index.html                            # fallback for phones without the app (/m/<token>)
 ├── .well-known/apple-app-site-association  # AASA — makes /m/* open the iOS app
 ├── vercel.json                             # AASA content-type + /m/<token> routing
@@ -79,23 +80,51 @@ Also needed once, on the Apple side: the **Associated Domains** capability on th
 `crosses.crosses-ios` App ID (Xcode adds it automatically with the entitlement present).
 Requires a paid developer membership.
 
+## The waitlist form
+
+The hero and closing CTAs point at the `#access` section, whose form posts an email to
+`api/waitlist.js`, a Vercel Serverless Function that writes a row to Airtable. **The
+Airtable token lives only in that function's environment, never in the page** — a token
+in client JS would be scrapable and grant read/write to the base.
+
+Set these in **Vercel → Project → Settings → Environment Variables** (then redeploy):
+
+| Var | Required | Notes |
+|---|---|---|
+| `AIRTABLE_TOKEN` | yes | Personal access token, scope `data.records:write`, on the base only |
+| `AIRTABLE_BASE_ID` | yes | `appXXXXXXXXXXXXXX` |
+| `AIRTABLE_TABLE` | no | Table name or id. Default `Waitlist` |
+| `WAITLIST_EMAIL_FIELD` | no | Email column. Default `Email` |
+| `WAITLIST_SOURCE_FIELD` | no | If set, stamped with `crossesapp.com`; skipped when unset |
+
+The table needs at least the email column. Until the vars are set the endpoint returns a
+polite 500 and the form shows an inline "not accepting signups right now" message rather
+than silently dropping the address. To test locally, run `vercel dev` (plain
+`open index.html` serves the page but not the function, so the form will report it
+couldn't reach the server).
+
 ## Editing the site
 
-Open this folder in any editor and open `index.html` in a browser. There is no toolchain.
-The only network dependency is the Google Fonts stylesheet (Archivo + Martian Mono).
+Open this folder in any editor and open `index.html` in a browser. There is no build step.
+The only network dependency is the Google Fonts stylesheet (Archivo + Instrument Sans +
+Martian Mono).
 
 Design notes worth preserving:
 
-- Colors are ported verbatim from the app's `CrossesTheme.swift`. If the app's palette
-  changes, change them here too.
-- **Orange means exactly one thing: live / now / yours.** Free is green, booked is grey.
-  Status chip *labels* use darkened variants of those hues because the raw colors fail
-  WCAG contrast as small text on a tint of themselves.
-- The wordmark is the app's own logo treatment: uppercase monospace, semibold, `.138em`
-  tracking. Martian Mono stands in for the app's SF Mono, which does not exist off Apple
-  platforms.
-- The page is theme-aware and carries a System/Light/Dark control mirroring the app's
-  appearance picker.
+- Colors match the app's `CrossesTheme.swift`. If the app's palette changes, change them
+  here too.
+- **Orange means exactly one thing: live / now / yours.** Nothing else on the page is ever
+  orange. Booked is grey; "yours" is grey hatched. `--orange-deep` (#ED2000) is the same
+  accent darkened to carry text contrast for labels and links on the off-white ground.
+- Body copy sits at 64% ink, not the comp's 52-55%, so it clears WCAG AA (4.5:1) on the
+  `#F5F5F7` ground. Keep it there; lighter grey fails contrast.
+- The wordmark is the app's own logo treatment: uppercase **SF Mono** (the app's system
+  monospace), semibold, `.138em` tracking, matching the brand sheet. Off Apple platforms
+  the stack falls back to Menlo, then the local monospace. Martian Mono is the instrument
+  label (the small mono eyebrows, stencils, and captions).
+- The page is light-only, matching the `Crosses Landing v2` comp. Content is visible by
+  default; JS only layers on the reveal, board loop, timer, and scroll choreography, so
+  no-JS and reduced-motion renders still get the whole page. Keep that invariant.
 
 ## When the app ships
 
