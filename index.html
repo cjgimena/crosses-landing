@@ -70,10 +70,6 @@
   --line-soft: rgb(17 17 20 / .07);
   --hair:      rgb(17 17 20 / .045);
 
-  --success:      #007134;
-  --success-line: rgb(0 163 74 / .30);
-  --success-bg:   rgb(0 163 74 / .07);
-
   --shell: 1180px;
   --pad: clamp(20px, 5vw, 60px);
 
@@ -394,9 +390,9 @@ input::placeholder { color: rgb(17 17 20 / .34); }
 .form-msg.err { color: var(--orange-deep); }
 
 .confirm {
-  margin-top: 34px; display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 20px;
-  border-radius: 8px; border: 1px solid var(--success-line); background: var(--success-bg);
-  color: var(--success); font-size: 15px; font-weight: 500;
+  margin: 34px auto 0; display: flex; width: fit-content; align-items: center; gap: 10px; height: 46px; padding: 0 20px;
+  border-radius: 8px; border: 1px solid var(--line); background: rgb(17 17 20 / .05);
+  color: var(--ink-90); font-size: 15px; font-weight: 500;
 }
 .confirm svg { width: 16px; height: 16px; flex: none; }
 
