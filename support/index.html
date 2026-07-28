@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Support · Crosses</title>
+<meta name="description" content="Answers to the questions that come up most with Crosses — signing in, rooms, machine tags, notifications, and the beta. Plus a real email address.">
+<meta name="theme-color" content="#F5F5F7">
+<link rel="canonical" href="https://crossesapp.com/support">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crossesapp.com/support">
+<meta property="og:title" content="Support · Crosses">
+<meta property="og:description" content="Common questions, and how to reach a human.">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E.k{stroke:%23111114}@media(prefers-color-scheme:dark){.k{stroke:%23F3F3F5}}%3C/style%3E%3Cg fill='none' stroke-width='10' stroke-linecap='round'%3E%3Cline class='k' x1='16' y1='35' x2='84' y2='35'/%3E%3Cline class='k' x1='16' y1='65' x2='84' y2='65'/%3E%3Cline class='k' x1='35' y1='16' x2='35' y2='84'/%3E%3Cline x1='65' y1='16' x2='65' y2='84' stroke='%23FF4300'/%3E%3C/g%3E%3Cg fill='none' stroke-width='10' stroke-linecap='butt'%3E%3Cline class='k' x1='57' y1='35' x2='73' y2='35'/%3E%3Cline class='k' x1='27' y1='65' x2='43' y2='65'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- impeccable-disable overused-font
+     Same committed faces as the landing page (Instrument Sans body, Archivo display,
+     Martian Mono labels). Confirmed intentional. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ============================================================================
+   Crosses — /privacy
+
+   The landing page's tokens and lockup, reduced to what a document needs: no
+   hero, no demo widgets, no scroll JS. Same ink-on-off-white with the single
+   orange accent, so this reads as the same site rather than a legal annex
+   someone bolted on.
+   ========================================================================= */
+
+:root {
+  color-scheme: light;
+
+  --bg:          #F5F5F7;
+  --surface:     #FFFFFF;
+  --ink:         #111114;
+  --orange:      #FF4300;
+  --orange-deep: #CC2200;
+
+  --ink-90: rgb(17 17 20 / .90);
+  --ink-64: rgb(17 17 20 / .64);
+  --ink-label: rgb(17 17 20 / .62);
+  --ink-32: rgb(17 17 20 / .32);
+
+  --line:      rgb(17 17 20 / .10);
+  --line-soft: rgb(17 17 20 / .07);
+
+  --shell: 1180px;
+  --pad: clamp(20px, 5vw, 60px);
+
+  --sans: 'Instrument Sans', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --display: Archivo, var(--sans);
+  --mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --wordmark: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --ease: cubic-bezier(.23, 1, .32, 1);
+  --z-header: 200;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+img, svg { max-width: 100%; }
+a { color: var(--ink); text-decoration: none; transition: color .2s var(--ease); }
+a:hover { color: var(--orange-deep); }
+::selection { background: var(--orange); color: #fff; }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: var(--z-header);
+  background: var(--ink); color: var(--bg); padding: 12px 18px;
+  border-radius: 0 0 10px 0; font-weight: 500;
+}
+.skip:focus { left: 0; }
+
+.eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ink-label);
+}
+
+/* ---- Header -------------------------------------------------------------- */
+.masthead {
+  position: sticky; top: 0; z-index: var(--z-header);
+  background: rgb(245 245 247 / .86);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(17 17 20 / .09);
+}
+.masthead .bar {
+  max-width: var(--shell); margin-inline: auto;
+  padding: 20px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+
+.lockup { display: inline-flex; align-items: center; gap: 11px; }
+.lockup .mark { width: 24px; height: 24px; flex: none; }
+.lockup:hover { color: var(--ink); }
+.lockup:hover .mark .live { stroke: var(--orange-deep); }
+.wordmark {
+  font-family: var(--wordmark); font-weight: 600; font-size: 14px; line-height: 1;
+  text-transform: uppercase; letter-spacing: .138em; text-indent: .138em; color: var(--ink);
+}
+
+.nav { display: flex; align-items: center; gap: 30px; }
+.nav .links { display: flex; align-items: center; gap: 30px; }
+.navlink { font-size: 13.5px; font-weight: 500; color: var(--ink-label); white-space: nowrap; }
+.navlink:hover { color: var(--ink); }
+.navlink.is-here { color: var(--ink); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; flex: none; white-space: nowrap;
+  height: 34px; padding: 0 15px; border-radius: 8px;
+  border: 1px solid rgb(17 17 20 / .16);
+  color: var(--ink); font-size: 13.5px; font-weight: 500;
+  transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.btn-outline:hover { background: rgb(17 17 20 / .04); border-color: rgb(17 17 20 / .28); color: var(--ink); }
+
+/* ---- Document ------------------------------------------------------------ */
+.doc { max-width: var(--shell); margin-inline: auto; padding: 0 var(--pad); }
+
+.doc-head { padding: clamp(64px, 9vw, 104px) 0 clamp(40px, 5vw, 60px); }
+.doc-head h1 {
+  margin: 26px 0 0;
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 2.9rem);
+  letter-spacing: -.035em; line-height: 1.14;
+  max-width: 20ch; text-wrap: balance;
+}
+.doc-head .lead {
+  margin: 24px 0 0; max-width: 58ch;
+  font-size: 17px; line-height: 1.65; color: var(--ink-64); text-wrap: pretty;
+}
+.stamp {
+  margin: 30px 0 0;
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--ink-label);
+}
+
+section.row {
+  border-top: 1px solid var(--line);
+  padding: 34px 0 clamp(40px, 5vw, 56px);
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: clamp(30px, 5vw, 60px); align-items: start;
+}
+section.row .aside { position: sticky; top: 96px; }
+section.row h2 {
+  margin: 18px 0 0;
+  font-family: var(--display); font-size: 22px; font-weight: 500;
+  letter-spacing: -.025em; line-height: 1.3;
+}
+.body > * + * { margin-top: 16px; }
+.body p { font-size: 16px; line-height: 1.68; color: var(--ink-90); max-width: 68ch; text-wrap: pretty; }
+.body p.muted { color: var(--ink-64); font-size: 15px; }
+.body h3 {
+  margin-top: 26px;
+  font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--ink);
+}
+.body h3 + p { margin-top: 8px; }
+
+.list { margin: 16px 0 0; padding: 0; list-style: none; max-width: 68ch; }
+.list li {
+  position: relative; padding-left: 20px;
+  font-size: 16px; line-height: 1.68; color: var(--ink-90);
+}
+.list li + li { margin-top: 10px; }
+.list li::before {
+  content: ""; position: absolute; left: 0; top: .78em;
+  width: 8px; height: 1.5px; background: var(--ink-32);
+}
+.list li b { font-weight: 600; }
+
+.callout {
+  margin-top: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 20px 22px;
+  max-width: 68ch;
+}
+.callout p { font-size: 15px; color: var(--ink-64); }
+.callout p + p { margin-top: 10px; }
+
+a.mail { color: var(--ink); border-bottom: 1px solid rgb(17 17 20 / .22); }
+a.mail:hover { color: var(--orange-deep); border-bottom-color: var(--orange-deep); }
+
+/* ---- Footer -------------------------------------------------------------- */
+footer { border-top: 1px solid var(--line); margin-top: clamp(40px, 6vw, 70px); }
+footer .bar {
+  max-width: var(--shell); margin-inline: auto; padding: 38px var(--pad);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+}
+footer .lockup .mark { width: 20px; height: 20px; }
+footer .wordmark { font-size: 13px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+footer nav a { font-size: 13.5px; white-space: nowrap; color: var(--ink-label); }
+footer nav a:hover { color: var(--ink); }
+footer .fine { margin: 0; width: 100%; font-size: 12.5px; color: var(--ink-label); }
+
+@media (max-width: 760px) {
+  section.row { grid-template-columns: 1fr; gap: 20px; }
+  section.row .aside { position: static; }
+  .nav .links { display: none; }
+}
+
+/* ---- FAQ ----------------------------------------------------------------- */
+.faq { margin: 0; padding: 0; }
+.faq .q {
+  border-top: 1px solid var(--line-soft);
+  padding: 20px 0;
+}
+.faq .q:first-child { border-top: 0; padding-top: 0; }
+.faq h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 17px; font-weight: 500; letter-spacing: -.015em; line-height: 1.35;
+  max-width: 46ch;
+}
+.faq p { margin: 10px 0 0; font-size: 15.5px; line-height: 1.68; color: var(--ink-64); max-width: 68ch; }
+.faq p + p { margin-top: 10px; }
+.faq code {
+  font-family: var(--mono); font-size: .82em;
+  background: rgb(17 17 20 / .05); padding: 2px 6px; border-radius: 5px;
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#doc">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="masthead">
+  <div class="bar">
+    <a class="lockup" href="/" aria-label="Crosses, home">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <g fill="none" stroke-width="10" stroke-linecap="round">
+          <line x1="16" y1="35" x2="84" y2="35" stroke="currentColor"/>
+          <line x1="16" y1="65" x2="84" y2="65" stroke="currentColor"/>
+          <line x1="35" y1="16" x2="35" y2="84" stroke="currentColor"/>
+          <line class="live" x1="65" y1="16" x2="65" y2="84" stroke="var(--orange)"/>
+        </g>
+        <g fill="none" stroke-linecap="butt">
+          <line x1="57" y1="35" x2="73" y2="35" stroke="var(--bg)" stroke-width="14"/>
+          <line x1="27" y1="65" x2="43" y2="65" stroke="var(--bg)" stroke-width="14"/>
+        </g>
+        <g fill="none" stroke-linecap="round">
+          <line x1="58" y1="35" x2="72" y2="35" stroke="currentColor" stroke-width="10"/>
+          <line x1="28" y1="65" x2="42" y2="65" stroke="currentColor" stroke-width="10"/>
+        </g>
+      </svg>
+      <span class="wordmark">crosses</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <span class="links">
+        <a class="navlink" href="/privacy">Privacy</a>
+        <a class="navlink is-here" href="/support" aria-current="page">Support</a>
+      </span>
+      <a class="btn-outline" href="/#access">Early access</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc" id="doc">
+
+  <div class="doc-head">
+    <span class="eyebrow">Support</span>
+    <h1>Something not behaving? Start here.</h1>
+    <p class="lead">Crosses is a small app with a small number of things that can go sideways.
+      Below are the questions that come up most. If yours is not here, the email address at the
+      bottom reaches a person, not a queue.</p>
+    <p class="stamp">Last updated · 28 July 2026</p>
+  </div>
+
+  <!-- ============ GETTING IN ============ -->
+  <section class="row">
+    <div class="aside">
+      <span class="eyebrow">Getting in</span>
+      <h2>Accounts, rooms, and what you need.</h2>
+    </div>
+    <div class="body">
+      <div class="faq">
+      <div class="q">
+        <h3>How do I sign in?</h3>
+        <p>Two ways, both passwordless. Enter your email and Crosses sends you a magic link — tap it on the same phone and you are in. Or use Sign in with Apple, which skips the email round trip entirely.</p>
+        <p>Magic links expire fairly quickly. If you get an error about an expired or invalid link, request a new one rather than reusing the old email.</p>
+      </div>
+      <div class="q">
+        <h3>How do I join a room?</h3>
+        <p>A room is a team, shop, or club that shares machines. Someone already in the room invites you, or shares it with you — you do not create your own room to join an existing one. If you are setting up a room for the first time, do it from Manage Rooms in the app.</p>
+        <p>Stuck without an invite? Email support and say which room you are trying to reach.</p>
+      </div>
+      <div class="q">
+        <h3>What iPhone do I need?</h3>
+        <p>Crosses currently requires iOS 26. That is a deliberate choice for the beta rather than a permanent floor, but if your phone is on an older version the app will not install. Check Settings → General → Software Update.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ USING IT ============ -->
+  <section class="row">
+    <div class="aside">
+      <span class="eyebrow">Using it</span>
+      <h2>Tags, status, and notifications.</h2>
+    </div>
+    <div class="body">
+      <div class="faq">
+      <div class="q">
+        <h3>What do the machine tags do?</h3>
+        <p>Each machine gets one NFC tag. Holding your phone near it opens Crosses straight onto that machine, so starting a session is a tap rather than a hunt through a list.</p>
+        <p>Tags are set up once, from the app, by whoever manages the room. You do not need to configure anything to use one.</p>
+      </div>
+      <div class="q">
+        <h3>I tapped a tag and got a web page instead of the app.</h3>
+        <p>That is the fallback for phones without Crosses installed — it means iOS did not hand the link to the app. Usually it is one of three things: the app is not installed, you opened the link from a context iOS treats as a plain web link, or the phone has not yet picked up the app's link registration.</p>
+        <p>Try opening Crosses once directly, then tap the tag again. If it keeps happening, email support with the machine name and what the page showed.</p>
+      </div>
+      <div class="q">
+        <h3>The room shows a machine as busy, but it is standing free.</h3>
+        <p>Status comes from sessions people actually start and finish in the app. If someone walked away without ending theirs, it stays busy until the session's estimate runs out. Anyone in the room can end a stale session from the machine's screen.</p>
+        <p>If a machine is stuck busy with no session behind it at all, that is a bug worth reporting — include the machine name and roughly when it happened.</p>
+      </div>
+      <div class="q">
+        <h3>I never got the “machine is free” notification.</h3>
+        <p>Those alerts are scheduled locally on your phone, so they need notification permission. Check Settings → Notifications → Crosses, and that notifications are on in the app's own Profile settings.</p>
+        <p>Because they are local rather than pushed from a server, they fire based on the current session's estimate. A session that runs long past its estimate will have already notified you.</p>
+      </div>
+      <div class="q">
+        <h3>Can I change my display name or photo?</h3>
+        <p>Yes — in the app, under Profile. Your display name and photo are what other members of your room see.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE BETA ============ -->
+  <section class="row">
+    <div class="aside">
+      <span class="eyebrow">The beta</span>
+      <h2>Testing, reporting, and leaving.</h2>
+    </div>
+    <div class="body">
+      <div class="faq">
+      <div class="q">
+        <h3>I am a beta tester. How do I report a bug?</h3>
+        <p>From TestFlight itself: take a screenshot in Crosses and TestFlight will offer to send feedback, or open TestFlight → Crosses → Send Feedback. That route attaches your device and build details automatically, which makes a report far easier to act on.</p>
+        <p>Email works too if you would rather write it out. Either way, what helps most is what you expected, what happened, and roughly when.</p>
+      </div>
+      <div class="q">
+        <h3>How do I get into the beta?</h3>
+        <p>Beta access goes out by invitation to the email address on your Apple ID. If you joined the early-access list on the home page, that is the list invitations come from. If you are expecting an invite that has not arrived, check the address you signed up with, then email support.</p>
+      </div>
+      <div class="q">
+        <h3>How do I delete my account and my data?</h3>
+        <p>Email <a class="mail" href="mailto:support@crossesapp.com">support@crossesapp.com</a> from the address on your account and ask for deletion. Your profile, photo, and session records are removed, typically well inside 30 days. The <a href="/privacy">privacy page</a> spells out exactly what goes and the one thing that does not.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="row">
+    <div class="aside">
+      <span class="eyebrow">Contact</span>
+      <h2>Write, and you get a reply.</h2>
+    </div>
+    <div class="body">
+      <p><a class="mail" href="mailto:support@crossesapp.com">support@crossesapp.com</a></p>
+      <p class="muted">Crosses is early and small, so replies come from a person rather than a
+        support desk. Expect an answer within a couple of days.</p>
+      <div class="callout">
+        <p><b>Things that make a bug report easy to fix:</b> what you were trying to do, what
+          happened instead, the machine or room it involved, and roughly when. A screenshot beats
+          a paragraph every time.</p>
+        <p>For anything about your data — what is stored, or getting it deleted — the
+          <a href="/privacy">privacy page</a> answers most of it, and the same address handles the
+          rest.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="bar">
+    <a class="lockup" href="/" aria-label="Crosses, home">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <g fill="none" stroke-width="10" stroke-linecap="round">
+          <line x1="16" y1="35" x2="84" y2="35" stroke="currentColor"/>
+          <line x1="16" y1="65" x2="84" y2="65" stroke="currentColor"/>
+          <line x1="35" y1="16" x2="35" y2="84" stroke="currentColor"/>
+          <line class="live" x1="65" y1="16" x2="65" y2="84" stroke="var(--orange)"/>
+        </g>
+        <g fill="none" stroke-linecap="butt">
+          <line x1="57" y1="35" x2="73" y2="35" stroke="var(--bg)" stroke-width="14"/>
+          <line x1="27" y1="65" x2="43" y2="65" stroke="var(--bg)" stroke-width="14"/>
+        </g>
+        <g fill="none" stroke-linecap="round">
+          <line x1="58" y1="35" x2="72" y2="35" stroke="currentColor" stroke-width="10"/>
+          <line x1="28" y1="65" x2="42" y2="65" stroke="currentColor" stroke-width="10"/>
+        </g>
+      </svg>
+      <span class="wordmark">crosses</span>
+    </a>
+    <nav aria-label="Footer">
+      <a href="/#room">The room</a>
+      <a href="/#session">A session</a>
+      <a href="/#tags">Tags</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/support">Support</a>
+      <a href="/#access">Early access</a>
+    </nav>
+    <p class="fine">&copy; 2026 Crosses. Built for team rooms that share a stringing machine.</p>
+  </div>
+</footer>
+
+</body>
+</html>
