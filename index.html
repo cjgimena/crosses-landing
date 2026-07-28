@@ -378,6 +378,7 @@ input::placeholder { color: rgb(17 17 20 / .34); }
 .field label { display: block; font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-label); margin-bottom: 8px; }
 .field input {
   width: 100%; height: 40px; background: transparent; border: 0; border-bottom: 1px solid rgb(17 17 20 / .16);
+  border-radius: 0; /* keep the underline square — override the global focus-visible border-radius */
   color: var(--ink); font-size: 16px; padding: 0 2px; outline: none;
   transition: border-color .3s var(--ease);
 }
@@ -390,9 +391,10 @@ input::placeholder { color: rgb(17 17 20 / .34); }
 .form-msg.err { color: var(--orange-deep); }
 
 .confirm {
-  margin: 34px auto 0; display: flex; width: fit-content; align-items: center; gap: 10px; height: 46px; padding: 0 20px;
+  margin: 34px auto 0; display: flex; width: fit-content; max-width: 100%;
+  align-items: center; gap: 10px; min-height: 46px; padding: 11px 20px;
   border-radius: 8px; border: 1px solid var(--line); background: rgb(17 17 20 / .05);
-  color: var(--ink-90); font-size: 15px; font-weight: 500;
+  color: var(--ink-90); font-size: 15px; font-weight: 500; line-height: 1.4;
 }
 .confirm svg { width: 16px; height: 16px; flex: none; }
 
