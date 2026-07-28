@@ -1,5 +1,12 @@
 // Waitlist capture → Airtable.
 //
+// RETIRED, BUT STILL DEPLOYED. Nothing posts here any more: the landing page's email form
+// was replaced by a direct link to the public TestFlight beta, which is what the waitlist
+// existed to hand out. The function is kept because the Airtable wiring is the tedious
+// part to rebuild — if email capture comes back (an App Store launch list, say), only the
+// markup has to. Delete this file and its env vars if you'd rather not keep an
+// unauthenticated public endpoint standing.
+//
 // Runs as a Vercel Serverless Function at POST /api/waitlist. It exists so the
 // Airtable token never ships to the browser: the static page posts an email
 // here, and this function forwards it to Airtable's REST API with a token held

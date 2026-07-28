@@ -6,7 +6,7 @@ machines. Static HTML and CSS, no build step, deployed to Vercel.
 ```
 .
 ├── index.html                              # landing page (crossesapp.com/)
-├── api/waitlist.js                         # serverless POST → Airtable (holds the token server-side)
+├── api/waitlist.js                         # serverless POST → Airtable (retired, unwired — see below)
 ├── m/index.html                            # fallback for phones without the app (/m/<token>)
 ├── .well-known/apple-app-site-association  # AASA — makes /m/* open the iOS app
 ├── vercel.json                             # AASA content-type + /m/<token> routing
@@ -80,14 +80,32 @@ Also needed once, on the Apple side: the **Associated Domains** capability on th
 `crosses.crosses-ios` App ID (Xcode adds it automatically with the entitlement present).
 Requires a paid developer membership.
 
-## The waitlist form
+## The CTAs
 
-The hero and closing CTAs point at the `#access` section, whose form posts an email to
-`api/waitlist.js`, a Vercel Serverless Function that writes a row to Airtable. **The
-Airtable token lives only in that function's environment, never in the page** — a token
-in client JS would be scrapable and grant read/write to the base.
+The hero and closing CTAs point at the `#access` section, which is a single link to the
+public TestFlight invite:
 
-Set these in **Vercel → Project → Settings → Environment Variables** (then redeploy):
+```
+https://testflight.apple.com/join/U9NDt4kd
+```
+
+It appears in three places — `index.html` (`#access`), `m/index.html` (the "Get Crosses"
+button), and `AppLinks.testFlightURL` in the app repo, which ships it in every room
+invite. Rotating the link means changing all three.
+
+### The retired waitlist form
+
+`#access` used to be an email form, because there was no public way into the beta. The
+TestFlight link is that way, so the form and its submit handler came out.
+
+`api/waitlist.js` is still here and still deploys, but **nothing posts to it.** It's kept
+because the Airtable wiring is the tedious part to rebuild — if you need email capture
+again (an App Store launch list, say), the endpoint is ready and only the markup has to
+come back. Delete the file and the env vars if you'd rather it stopped being an
+unauthenticated public endpoint.
+
+If you do re-wire it, set these in **Vercel → Project → Settings → Environment
+Variables** (then redeploy):
 
 | Var | Required | Notes |
 |---|---|---|
@@ -98,10 +116,8 @@ Set these in **Vercel → Project → Settings → Environment Variables** (then
 | `WAITLIST_SOURCE_FIELD` | no | If set, stamped with `crossesapp.com`; skipped when unset |
 
 The table needs at least the email column. Until the vars are set the endpoint returns a
-polite 500 and the form shows an inline "not accepting signups right now" message rather
-than silently dropping the address. To test locally, run `vercel dev` (plain
-`open index.html` serves the page but not the function, so the form will report it
-couldn't reach the server).
+polite 500 rather than silently dropping the address. To exercise it locally, run
+`vercel dev` (plain `open index.html` serves the page but not the function).
 
 ## Editing the site
 
@@ -128,9 +144,11 @@ Design notes worth preserving:
 
 ## When the app ships
 
-- Add the real App Store link and the smart banner in `m/index.html` (a comment marks the
-  spot), and swap `appStoreID` in the app's `AppLinks.swift`.
-- The hero and closing CTAs currently read "Coming soon" in `index.html`.
+- Uncomment the smart banner in `m/index.html` (a comment marks the spot) and repoint its
+  "Get Crosses" button from TestFlight to the App Store URL. TestFlight builds expire; the
+  listing won't. Retire `AppLinks.testFlightURL` in the app repo for `appStoreID` at the
+  same time, and swap the `#access` CTA in `index.html`.
+- The hero chip and the `#access` fold both say TestFlight; both need rewording.
 - To make `/m/<token>` name the actual machine ("Court 3 · UCLA Team Room"), add a narrow
   read path in the app's existing Supabase project (a Postgres RPC returning just machine
   name + room name for a token). Keep RLS strict, use the publishable/anon key only, and
