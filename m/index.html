@@ -10,9 +10,23 @@
 <!-- Favicon: the canonical woven "#" (matches brand/crosses-mark.svg and the main site).
      Ink flips to light on a dark tab bar so one file serves both, per the brand spec. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E.k{stroke:%23111114}@media(prefers-color-scheme:dark){.k{stroke:%23F3F3F5}}%3C/style%3E%3Cg fill='none' stroke-width='10' stroke-linecap='round'%3E%3Cline class='k' x1='16' y1='35' x2='84' y2='35'/%3E%3Cline class='k' x1='16' y1='65' x2='84' y2='65'/%3E%3Cline class='k' x1='35' y1='16' x2='35' y2='84'/%3E%3Cline x1='65' y1='16' x2='65' y2='84' stroke='%23FF4300'/%3E%3C/g%3E%3Cg fill='none' stroke-width='10' stroke-linecap='butt'%3E%3Cline class='k' x1='57' y1='35' x2='73' y2='35'/%3E%3Cline class='k' x1='27' y1='65' x2='43' y2='65'/%3E%3C/g%3E%3C/svg%3E">
-<!-- Once the app is published, add the smart banner + real App Store link:
-     <meta name="apple-itunes-app" content="app-id=YOUR_APPSTORE_ID">
-     and point the "Get Crosses" button at https://apps.apple.com/app/idYOUR_APPSTORE_ID -->
+<!-- App Store id: 6793786157 (bundle crosses.crosses-ios, team FYQ358R59X). Mirrors
+     AppLinks.appStoreID in the crosses-ios repo, which spells it "id6793786157" because
+     itms-apps URLs want the prefix and this meta tag does not.
+
+     Still commented, and it has to stay that way until the app is actually on the App
+     Store. Today it exists only as an App Store Connect record with an internal TestFlight
+     build; https://apps.apple.com/app/id6793786157 is a dead page. This is the screen
+     someone lands on when they tap a machine's tag *without* the app — sending them to a
+     404 is worse than the honest "coming soon" copy already below.
+
+     On publication day, uncomment this and add a third button beside "Open in Crosses":
+
+       <meta name="apple-itunes-app" content="app-id=6793786157">
+       <a class="btn btn-ghost" href="https://apps.apple.com/app/id6793786157">Get Crosses</a>
+
+     (There is no "Get Crosses" button yet — the earlier version of this comment claimed
+     there was one to point at, and there never has been.) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- impeccable-disable overused-font
