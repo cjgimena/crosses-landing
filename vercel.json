@@ -9,6 +9,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/m/:token", "destination": "/m/index.html" }
+    { "source": "/m/:token", "destination": "/m/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" },
+    { "source": "/support", "destination": "/support/index.html" }
   ]
 }
