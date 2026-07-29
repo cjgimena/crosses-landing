@@ -17,8 +17,8 @@ whether the app is worth waiting for before it ships.
 Crosses is an iPhone app that keeps every shared stringing machine on one live screen:
 who is on which machine, what is free, what is booked, and who did what. This site is
 its pre-launch marketing page. Success is a visitor understanding the product in one
-scroll and leaving their email for the TestFlight invite. The app is built and in
-testing; the page's job is comprehension plus waitlist capture, not a sale.
+scroll and installing the open TestFlight beta. The app is built and in testing; the
+page's job is comprehension plus the install, not a sale.
 
 ## Brand Personality
 

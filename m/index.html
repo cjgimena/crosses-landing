@@ -15,18 +15,17 @@
      itms-apps URLs want the prefix and this meta tag does not.
 
      Still commented, and it has to stay that way until the app is actually on the App
-     Store. Today it exists only as an App Store Connect record with an internal TestFlight
-     build; https://apps.apple.com/app/id6793786157 is a dead page. This is the screen
-     someone lands on when they tap a machine's tag *without* the app — sending them to a
-     404 is worse than the honest "coming soon" copy already below.
+     Store: today the listing exists only as an App Store Connect record, and
+     https://apps.apple.com/app/id6793786157 is a dead page.
 
-     On publication day, uncomment this and add a third button beside "Open in Crosses":
+     The "Get Crosses" button below goes to the public TestFlight invite instead, which is
+     a real install path — this is the screen someone lands on when they tap a machine's
+     tag *without* the app, so it's the one place that most needs one.
 
-       <meta name="apple-itunes-app" content="app-id=6793786157">
-       <a class="btn btn-ghost" href="https://apps.apple.com/app/id6793786157">Get Crosses</a>
+     On publication day, uncomment the meta tag and repoint that button at the App Store
+     URL (TestFlight builds expire; the listing won't):
 
-     (There is no "Get Crosses" button yet — the earlier version of this comment claimed
-     there was one to point at, and there never has been.) -->
+       <meta name="apple-itunes-app" content="app-id=6793786157"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- impeccable-disable overused-font
@@ -112,10 +111,11 @@
     </svg>
     <div class="eyebrow">Machine tag</div>
     <h1>You tapped a machine tag.</h1>
-    <p>Open Crosses to check in and start stringing. Don't have it yet? It's coming soon
-       to iPhone; once you install it, tap the tag again.</p>
+    <p>Open Crosses to check in and start stringing. Don't have it yet? Install the beta
+       from TestFlight, then tap the tag again.</p>
     <div class="token" id="token">machine</div>
     <a class="btn btn-primary" id="open" href="#">Open in Crosses</a>
+    <a class="btn btn-ghost" href="https://testflight.apple.com/join/U9NDt4kd">Get Crosses · TestFlight</a>
     <a class="btn btn-ghost" href="/">About Crosses</a>
   </main>
   <script>
