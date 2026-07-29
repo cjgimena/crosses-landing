@@ -6,11 +6,14 @@ machines. Static HTML and CSS, no build step, deployed to Vercel.
 ```
 .
 ├── index.html                              # landing page (crossesapp.com/)
+├── og.png                                  # 1200x630 social share card (built, committed, served)
 ├── api/waitlist.js                         # serverless POST → Airtable (retired, unwired — see below)
 ├── m/index.html                            # fallback for phones without the app (/m/<token>)
 ├── .well-known/apple-app-site-association  # AASA — makes /m/* open the iOS app
 ├── vercel.json                             # AASA content-type + /m/<token> routing
 ├── brand/crosses-mark.svg                  # the woven "#" mark, standalone
+├── brand/og.html                           # source for og.png (C2 · Light lockup); fonts under brand/fonts
+├── scripts/build-og.mjs                    # renders brand/og.html → og.png with headless Chrome
 └── scripts/check-aasa.sh                   # guards the seam with the app repo
 ```
 
@@ -141,6 +144,19 @@ Design notes worth preserving:
 - The page is light-only, matching the `Crosses Landing v2` comp. Content is visible by
   default; JS only layers on the reveal, board loop, timer, and scroll choreography, so
   no-JS and reduced-motion renders still get the whole page. Keep that invariant.
+- The social share card (`og.png`, wired into `index.html` and `m/index.html` as
+  `og:image` / `twitter:image`) is the **C2 · Light** lockup from the brand sheet: the
+  woven mark, the CROSSES wordmark, the orange STRING TRACKING tagline, the value line,
+  and the install channel, on the off-white ground. It is a built asset. Edit the
+  template at `brand/og.html`, then regenerate and re-commit both files:
+
+  ```bash
+  node scripts/build-og.mjs
+  ```
+
+  Fonts are vendored under `brand/fonts/` (Archivo + Martian Mono, the same faces the
+  site uses) so the render is deterministic and offline. If you rename or move `og.png`,
+  update the absolute `og:image` URLs in both HTML files to match.
 
 ## When the app ships
 
