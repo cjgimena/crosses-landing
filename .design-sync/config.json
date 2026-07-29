@@ -3,5 +3,20 @@
   "globalName": "CrossesUI",
   "projectId": "3160f310-6630-4eaf-8d1d-77535d434fb8",
   "shape": "package",
-  "buildCmd": "npm --prefix packages/ui run build"
+  "buildCmd": "npm --prefix packages/ui run build",
+  "cssEntry": "dist/index.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "provider": {
+    "component": "CrossesRoot"
+  },
+  "overrides": {
+    "Aside": { "cardMode": "column" },
+    "Track": { "cardMode": "column" },
+    "Meter": { "cardMode": "column" },
+    "SlotGrid": { "cardMode": "column" },
+
+    "Nav": { "cardMode": "column", "viewport": "1040x240" },
+    "Split": { "cardMode": "column", "viewport": "1100x900" },
+    "Masthead": { "cardMode": "single", "primaryStory": "Stuck", "viewport": "1100x200" }
+  }
 }

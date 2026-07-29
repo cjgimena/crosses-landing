@@ -27,7 +27,9 @@ export function Track({ kind = 'free', left = 0, width = 0, now = 48, className,
 
   return (
     <span className={['track', `is-${kind}`, className].filter(Boolean).join(' ')} style={style} {...rest}>
-      <span className="past" />
+      {/* "Already gone" ends where now is — the two are the same edge, so the
+          shading has to follow the hairline rather than sit at a fixed 48%. */}
+      <span className="past" style={{ width: `${now}%` }} />
       <span
         className="fill"
         style={{ clipPath: clip, WebkitClipPath: clip, opacity: width ? 1 : 0 }}
