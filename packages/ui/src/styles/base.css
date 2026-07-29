@@ -1,0 +1,71 @@
+/* ============================================================================
+   Crosses — base layer
+
+   Everything is scoped under .crx-root (rendered by <CrossesRoot>) so the system
+   can be dropped into a host app without restyling its document.
+
+   The scope is written as :where(.crx-root) on purpose. :where() contributes
+   nothing to specificity, so every element reset below weighs exactly what the
+   bare element selector would — which is what lets a component class like
+   .btn-solid override `a { color: var(--ink) }` the way it does on the page it
+   came from. Writing `.crx-root a` instead silently outranks every component,
+   and the first casualty is the primary button's label going ink-on-ink.
+   ========================================================================= */
+
+:where(.crx-root),
+:where(.crx-root) *,
+:where(.crx-root) *::before,
+:where(.crx-root) *::after { box-sizing: border-box; }
+
+/* The `hidden` attribute must win over any element's own `display` (e.g. the
+   waitlist confirmation and the form both set display in their class), so the
+   confirmation only appears after a successful submit, never on load. */
+:where(.crx-root) [hidden] { display: none !important; }
+
+.crx-root {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+:where(.crx-root) h1,
+:where(.crx-root) h2,
+:where(.crx-root) h3 { margin: 0; }
+:where(.crx-root) p { margin: 0; }
+:where(.crx-root) img,
+:where(.crx-root) svg { max-width: 100%; }
+
+:where(.crx-root) a { color: var(--ink); text-decoration: none; transition: color .2s var(--ease); }
+:where(.crx-root) a:hover { color: var(--orange-deep); }
+
+:where(.crx-root) input { font-family: inherit; }
+:where(.crx-root) input::placeholder { color: rgb(17 17 20 / .34); }
+
+:where(.crx-root) ::selection { background: var(--orange); color: #fff; }
+
+:where(.crx-root) :where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---- Utilities ----------------------------------------------------------- */
+.shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--pad); }
+.mono { font-family: var(--mono); }
+
+/* ---- Motion --------------------------------------------------------------
+   Content is visible by default. `.reveal` only opts into the entrance once a
+   host has set `.js` on an ancestor, so no-JS and headless renders never ship
+   blank — the page's "never ship blank" principle, carried into the library. */
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+@keyframes crx-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: opacity .2s linear; }
+}

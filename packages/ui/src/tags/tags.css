@@ -1,0 +1,38 @@
+/* ============ TAGS ============ */
+.forks { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 44px); }
+
+.fork-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; margin-bottom: 16px; }
+.fork-row:last-of-type { margin-bottom: 0; }
+.fork-row .pin { margin-top: 8px; width: 6px; height: 6px; border-radius: 50%; flex: none; background: var(--booked); }
+.fork-row.is-live .pin { background: var(--orange); }
+.fork-row span.t { font-size: 15px; line-height: 1.6; color: var(--ink-64); }
+.fork-row span.t b { color: var(--ink); font-weight: 600; }
+
+.url {
+  margin-top: 20px; display: block; overflow-x: auto; white-space: nowrap;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+  padding: 11px 13px; color: var(--ink-64); font-family: var(--mono); font-size: 11px;
+}
+.url b { color: var(--orange-deep); font-weight: 600; }
+
+.tagcard { padding: 24px 26px; }
+.tagcard .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.tagcard .top b { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.tagcard p { margin: 0 0 20px; font-size: 14.5px; line-height: 1.6; color: var(--ink-64); }
+
+.planned { font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--orange-deep); padding: 4px 8px; border-radius: 5px; background: rgb(255 67 0 / .08); }
+
+.q-label { display: block; font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-label); margin-bottom: 14px; }
+
+.slots { margin-top: 16px; display: flex; gap: 6px; }
+.slot {
+  flex: 1; height: 34px; border-radius: 7px; display: grid; place-items: center;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  background: var(--surface-2); color: rgb(17 17 20 / .28); border: 1px solid rgb(17 17 20 / .08);
+  transition: background-color .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.slot.is-on { background: rgb(255 67 0 / .07); color: var(--orange-deep); border-color: rgb(255 67 0 / .28); }
+
+@media (max-width: 900px) {
+  .forks { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,61 @@
+.btn-outline {
+  display: inline-flex; align-items: center; flex: none; white-space: nowrap;
+  height: 34px; padding: 0 15px; border-radius: 8px;
+  border: 1px solid rgb(17 17 20 / .16); color: var(--ink);
+  font-size: 13.5px; font-weight: 500;
+  transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.btn-outline:hover { background: rgb(17 17 20 / .04); border-color: rgb(17 17 20 / .28); color: var(--ink); }
+
+.btn-solid {
+  display: inline-flex; align-items: center; justify-content: center; flex: none; white-space: nowrap;
+  height: 46px; padding: 0 22px; border-radius: 8px; border: 0;
+  background: var(--ink); color: var(--bg);
+  font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: background-color .2s var(--ease), transform .18s var(--ease);
+}
+.btn-solid:hover { background: #000; color: var(--bg); }
+.btn-solid:active { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) { .btn-solid:active { transform: none; } }
+
+/* Secondary hero control: matches the primary's height, outline instead of fill.
+   Informational (platform + status), so it's a non-interactive span, not a link. */
+.btn-line {
+  display: inline-flex; align-items: center; gap: 10px; flex: none; white-space: nowrap;
+  height: 46px; padding: 0 18px; border-radius: 8px;
+  border: 1px solid var(--line); color: var(--ink-64);
+  font-size: 15px; font-weight: 500; cursor: default;
+}
+.btn-line .soon {
+  font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-label);
+  /* Optical centering: box-centering leaves the all-caps label riding ~1px high
+     against the platform name, whose visual mass sits at its x-height. */
+  position: relative; top: 1px;
+}
+
+.tag-link { margin-top: 18px; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; color: var(--orange-deep); }
+.tag-link svg { width: 12px; height: 12px; transition: transform .3s var(--ease); }
+.tag-link:hover { color: var(--orange-deep); }
+.tag-link:hover svg { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .tag-link:hover svg { transform: none; } }
+
+/* ---- Quantity stepper ---------------------------------------------------- */
+.stepper { display: flex; align-items: center; gap: 14px; }
+.step-btn {
+  position: relative;
+  width: 36px; height: 36px; border-radius: 8px; background: var(--bg);
+  border: 1px solid rgb(17 17 20 / .12); color: var(--ink);
+  font-size: 18px; line-height: 1; cursor: pointer; display: grid; place-items: center;
+  transition: background-color .18s var(--ease), border-color .18s var(--ease);
+}
+/* 44x44 tap target (Apple HIG) while the control stays visually 36px. */
+.step-btn::after { content: ""; position: absolute; inset: -4px; }
+.step-btn:hover { background: #EDEDF0; border-color: rgb(17 17 20 / .24); }
+.step-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.qty { min-width: 2ch; text-align: center; font-family: var(--display); font-size: 36px; font-weight: 400; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+
+.price { text-align: right; }
+.price .amt { display: block; font-size: 20px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.price .unit { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-label); margin-top: 3px; }
