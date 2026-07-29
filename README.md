@@ -160,6 +160,15 @@ Design notes worth preserving:
   the site uses) so the render is deterministic and offline. Set `CHROME` to point the
   script at a Chromium binary other than the default macOS Google Chrome. If you rename
   or move `og.png`, update the absolute `og:image` URLs in both HTML files to match.
+- The footer carries one outbound social link, Instagram (`@crossesapp`), icon-only with an
+  `aria-label`. The glyph is stroke-drawn like the woven mark and sits at `--ink-label`, so
+  the footer stays the quietest surface and the icon never takes the accent — orange keeps
+  meaning live / now / yours. (The orange focus ring is the site-wide affordance and
+  applies here like anywhere else.) The `href` is the bare profile URL deliberately: the
+  link Instagram hands you from the app carries `igsh=` and `utm_source=qr` params, which
+  would tag every visitor arriving from the site as a QR scan. Strip them if you repoint
+  it. The markup and its CSS are duplicated in `index.html`, `privacy/index.html`, and
+  `support/index.html`, since each page carries its own copy of the footer.
 
 ## When the app ships
 
