@@ -1,0 +1,74 @@
+/* ============ THE ROOM ============ */
+.notes { margin-top: clamp(48px, 6vw, 72px); }
+.note { border-top: 1px solid var(--line); padding-top: 20px; }
+.note h3 { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.note p { margin: 9px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-64); }
+
+/* Board — the machines screen, rendered for real. */
+.board { padding: 24px 26px 20px; }
+.board-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.board-head .title { display: flex; flex-direction: column; gap: 2px; }
+.board-head .title b { font-size: 17px; font-weight: 600; letter-spacing: -.02em; }
+.board-head .title span { font-size: 13px; color: var(--ink-label); }
+
+.live-tag {
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono);
+  font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-label);
+}
+.live-tag .beat { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+.js .live-tag .beat { animation: crx-pulse 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .js .live-tag .beat { animation: none; } }
+
+.lane {
+  display: grid; grid-template-columns: 130px 1fr 122px; gap: 18px; align-items: center;
+  padding: 15px 0; border-top: 1px solid var(--line-soft);
+}
+.lane .who { display: flex; flex-direction: column; gap: 2px; }
+.lane .who b { font-size: 14.5px; font-weight: 500; letter-spacing: -.01em; }
+.lane .who span { font-family: var(--mono); font-size: 9px; letter-spacing: .06em; color: var(--ink-42); }
+
+.track { position: relative; display: block; height: 22px; border-radius: 7px; background: rgb(17 17 20 / .045); overflow: hidden; }
+.track .past { position: absolute; left: 0; top: 0; bottom: 0; width: 48%; background: rgb(17 17 20 / .03); }
+/* The moving segment is a full-width bar revealed by an animated clip window, so
+   position and size slide together as one composited clip-path (no left/width
+   layout animation), and `round 5px` keeps true rounded ends at any width. */
+.track .fill {
+  position: absolute; left: 0; right: 0; top: 3px; bottom: 3px;
+  background: var(--booked);
+  -webkit-clip-path: inset(0 100% 0 0 round 5px); clip-path: inset(0 100% 0 0 round 5px);
+  transition: -webkit-clip-path .7s var(--ease), clip-path .7s var(--ease), background-color .5s, opacity .5s;
+}
+.track.is-inuse .fill { background: var(--orange); }
+.track.is-mine .fill { background-image: repeating-linear-gradient(45deg, transparent 0 3px, rgb(255 255 255 / .7) 3px 6px); }
+.track .now { position: absolute; left: 48%; top: 3px; bottom: 3px; width: 2px; border-radius: 1px; background: var(--orange); }
+@media (prefers-reduced-motion: reduce) { .track .fill { transition: none; } }
+
+.lane .status { display: inline-flex; align-items: center; gap: 7px; justify-content: flex-end; white-space: nowrap; }
+.lane .status .dot {
+  width: 6px; height: 6px; border-radius: 50%; flex: none; box-sizing: border-box;
+  background: transparent; border: 1.5px solid rgb(17 17 20 / .28);
+}
+.lane.is-inuse .status .dot { background: var(--orange); border: 0; }
+.lane .status .label { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-64); }
+.lane.is-inuse .status .label { color: var(--orange-ink); }
+
+.legend {
+  display: flex; align-items: center; gap: 16px; padding-top: 14px;
+  border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-label);
+}
+.legend .key { display: inline-flex; align-items: center; gap: 5px; }
+.legend .chip { width: 10px; height: 10px; border-radius: 3px; }
+.legend .chip.inuse { background: var(--orange); }
+.legend .chip.booked { background: var(--booked); }
+.legend .chip.mine { background: var(--booked); background-image: repeating-linear-gradient(45deg, transparent 0 1.5px, rgb(255 255 255 / .65) 1.5px 3px); }
+.legend .chip.now { width: 2px; height: 10px; border-radius: 1px; background: var(--orange); }
+.legend .spacer { flex: 1; }
+
+@media (max-width: 560px) {
+  .lane { grid-template-columns: 1fr auto; gap: 8px 12px; }
+  .lane .who { grid-column: 1; grid-row: 1; }
+  .lane .status { grid-column: 2; grid-row: 1; justify-content: flex-end; }
+  .lane .track { grid-column: 1 / -1; grid-row: 2; }
+  .legend { flex-wrap: wrap; gap: 10px 14px; }
+  .legend .spacer { display: none; }
+}

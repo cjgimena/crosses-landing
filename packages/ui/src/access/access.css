@@ -1,0 +1,32 @@
+/* ============ ACCESS ============ */
+.access { border-top: 1px solid var(--line); padding-top: clamp(56px, 7vw, 86px); max-width: 620px; }
+.access h2 { margin: 0; font-family: var(--display); font-size: clamp(1.7rem, 1.1rem + 1.7vw, 2.35rem); font-weight: 400; letter-spacing: -.032em; line-height: 1.18; max-width: 18ch; text-wrap: balance; }
+.access .lead { margin: 18px 0 0; max-width: 50ch; font-size: 16.5px; line-height: 1.65; color: var(--ink-64); text-wrap: pretty; }
+
+.form { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; max-width: 520px; }
+.form .btn-solid { transition: background-color .2s var(--ease), transform .18s var(--ease), opacity .2s; }
+.form.busy .btn-solid { opacity: .6; pointer-events: none; }
+
+.field { flex: 1; min-width: 230px; }
+.field label { display: block; font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-label); margin-bottom: 8px; }
+.field input {
+  width: 100%; height: 40px; background: transparent; border: 0; border-bottom: 1px solid rgb(17 17 20 / .16);
+  border-radius: 0; /* keep the underline square — override the global focus-visible border-radius */
+  color: var(--ink); font-size: 16px; padding: 0 2px; outline: none;
+  transition: border-color .3s var(--ease);
+}
+.field input:focus { border-bottom-color: var(--orange); border-bottom-width: 2px; }
+.field.err input { border-bottom-color: var(--orange-deep); }
+
+.form-msg { margin-top: 12px; font-size: 13.5px; min-height: 1em; }
+.form-msg.err { color: var(--orange-deep); }
+
+.confirm {
+  margin: 34px auto 0; display: flex; width: fit-content; max-width: 100%;
+  align-items: center; gap: 10px; min-height: 46px; padding: 11px 20px;
+  border-radius: 8px; border: 1px solid var(--line); background: rgb(17 17 20 / .05);
+  color: var(--ink-90); font-size: 15px; font-weight: 500; line-height: 1.4;
+}
+.confirm svg { width: 16px; height: 16px; flex: none; }
+
+.fineprint { margin: 26px 0 0; font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-label); }

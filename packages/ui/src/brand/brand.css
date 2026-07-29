@@ -1,0 +1,15 @@
+/* ---- Logo lockup --------------------------------------------------------- */
+.lockup { display: inline-flex; align-items: center; gap: 11px; }
+.lockup .mark { width: 24px; height: 24px; flex: none; }
+
+.wordmark {
+  font-family: var(--wordmark); font-weight: 600; font-size: 14px; line-height: 1;
+  text-transform: uppercase; letter-spacing: .138em; text-indent: .138em; color: var(--ink);
+}
+
+.lockup:hover { color: var(--ink); }
+.lockup:hover .mark .live { stroke: var(--orange-deep); }
+
+/* Footer scale. */
+.lockup.is-sm .mark { width: 20px; height: 20px; }
+.lockup.is-sm .wordmark { font-size: 13px; }

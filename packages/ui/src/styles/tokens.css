@@ -1,0 +1,56 @@
+/* ============================================================================
+   Crosses — design tokens
+
+   Ported verbatim from crossesapp.com. Design world: a stringing machine under
+   tension. Exactly one accent, orange #FF4300, and it means one thing everywhere
+   it appears — live, now, or yours. Every other surface is ink on off-white.
+
+   Declared on both :root and .crx-root so the tokens resolve whether the system
+   owns the document or is mounted inside a host app under <CrossesRoot>.
+   ========================================================================= */
+
+:root,
+.crx-root {
+  color-scheme: light;
+
+  --bg:          #F5F5F7;
+  --surface:     #FFFFFF;
+  --surface-2:   #FAFAFB;
+  --ink:         #111114;
+  --orange:      #FF4300;   /* the one accent: live / now / yours (graphical: fills, dots, string) */
+  --orange-deep: #CC2200;   /* same accent darkened so it clears 4.5:1 as small text on --bg,
+                               white, and the orange tint behind the "Planned" badge */
+  --orange-ink:  #A81700;   /* deepest step of the accent. Status labels that read "live" are set
+                               in this so a 13px label still clears AA on --surface. */
+  --booked:      #8A8A90;
+
+  /* Ink ramp. On the #F5F5F7 ground there is little room below ~62% before text
+     drops under WCAG AA (4.5:1), so secondary text earns its lower weight through
+     size / tracking / uppercase, not by washing out. --ink-42 survives only for
+     aria-hidden, purely decorative micro-captions inside the demo widgets. */
+  --ink-90: rgb(17 17 20 / .90);   /* strong secondary                       ~11:1 */
+  --ink-70: rgb(17 17 20 / .70);
+  --ink-64: rgb(17 17 20 / .64);   /* body copy                              5.5:1 */
+  --ink-label: rgb(17 17 20 / .62);/* labels, eyebrows, nav, fine print      ~4.9:1 */
+  --ink-42: rgb(17 17 20 / .42);   /* decorative demo captions only (aria-hidden) */
+  --ink-32: rgb(17 17 20 / .32);
+
+  --line:      rgb(17 17 20 / .10);
+  --line-soft: rgb(17 17 20 / .07);
+  --hair:      rgb(17 17 20 / .045);
+
+  --shell: 1180px;
+  --pad: clamp(20px, 5vw, 60px);
+
+  --sans: 'Instrument Sans', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --display: Archivo, var(--sans);
+  --mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --wordmark: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --ease: cubic-bezier(.23, 1, .32, 1);
+
+  /* Semantic stacking order. */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 200;
+}
