@@ -15,9 +15,9 @@ process.stdout.write(`<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Crosses · rebuilt from @crosses/ui</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500;600&display=swap">
+<!-- No font <link>. The library ships its own @font-face + woff2, and this page
+     proves it: if the type below is right, a design built with @crosses/ui gets
+     the brand faces with nothing loaded from a font host. -->
 <link rel="stylesheet" href="../../dist/index.css">
 <style>
   /* The page-level frame the library deliberately does not own: the document

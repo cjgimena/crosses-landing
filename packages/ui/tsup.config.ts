@@ -13,4 +13,7 @@ export default defineConfig({
   // Emit one stylesheet (dist/index.css) rather than injecting <style> at import
   // time: the design system's CSS has to be linkable on its own.
   injectStyle: false,
+  // Copy the vendored woff2s next to the stylesheet and rewrite their url()s, so
+  // dist/ carries the brand type instead of pointing at files only this repo has.
+  loader: { '.woff2': 'file' },
 });

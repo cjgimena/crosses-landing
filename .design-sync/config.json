@@ -1,0 +1,7 @@
+{
+  "pkg": "@crosses/ui",
+  "globalName": "CrossesUI",
+  "projectId": "3160f310-6630-4eaf-8d1d-77535d434fb8",
+  "shape": "package",
+  "buildCmd": "npm --prefix packages/ui run build"
+}

@@ -5,6 +5,7 @@
  * background, the type and the focus rings come from.
  */
 
+import './styles/fonts.css';
 import './styles/tokens.css';
 import './styles/base.css';
 
