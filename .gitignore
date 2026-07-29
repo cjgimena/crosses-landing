@@ -2,3 +2,7 @@
 .vercel
 node_modules/
 .env*
+
+# DesignSync tooling + build outputs — regenerable, kept locally, never committed
+.ds-sync/
+ds-bundle/
