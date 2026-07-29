@@ -75,6 +75,37 @@ run is new** — look at it rather than assuming it was always there.
 and expected: the converter's staged deps don't include `typescript`. The types
 are checked properly by `npm --prefix packages/ui run typecheck`.
 
+## DO NOT RECONCILE — hand-authored cards live in this project
+
+The design project holds **two** design systems: the 46 components this repo
+syncs, and a set of hand-authored documentation cards that are not produced by
+any build here. Confirmed keepers (2026-07-28):
+
+```
+components/buttons.html      foundations/brand.html
+components/empty-state.html  foundations/color.html
+components/headers.html      foundations/geometry.html
+components/navigation.html   foundations/type.html
+components/status.html       platform/divergence.html
+components/surfaces.html
+```
+
+Six of these sit under `components/`, which is inside the upload plan's delete
+globs. **The close-out reconciliation will propose deleting all of them** — it
+computes "remote paths the local `ds-bundle/` does not contain", and it cannot
+tell hand-authored work from an orphan this repo dropped. Skip those paths every
+time. `foundations/` and `platform/` are outside the plan's globs and are safe by
+construction, but check them anyway.
+
+They arrived mid-run on the first sync: `list_files` returned `[]` at the start
+and 11 extra files at close-out. So an empty project at the start of a run is
+**not** proof that deletes are safe at the end of it. Re-list immediately before
+reconciling and diff against this list.
+
+(That first sync also wrote `README.md` and `styles.css`. If the hand-authored
+set had its own, they were overwritten — nothing here can tell, and it can't be
+undone.)
+
 ## Re-sync risks
 
 - **The previews import `'@crosses/ui'` by package name.** Renaming the package
